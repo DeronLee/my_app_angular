@@ -41,13 +41,3 @@ testem.log
 .DS_Store
 Thumbs.db
 
-yarn.lock
-*.component.js
-*.component.js.map
-
-mock-order.js
-mock-order.js.map
-order.js
-order.js.map
-
-

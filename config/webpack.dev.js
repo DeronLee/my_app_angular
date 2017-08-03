@@ -1,24 +1,30 @@
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const commonConfig = require('./webpack.common.js');
+const helpers = require('./helpers');
 
-module.exports = webpackMerge(commonConfig, {
+const config = webpackMerge(commonConfig, {
     devtool: 'cheap-module-eval-source-map',
-
     output: {
         path: helpers.root('dist'),
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'
     },
-
-    plugins: [
-        new ExtractTextPlugin('[name].css')
-    ],
-
     devServer: {
         historyApiFallback: true,
-        stats: 'minimal'
-    }
+        inline: true,
+        stats: 'minimal',
+        host: '0.0.0.0',
+        port: 4002
+    },
+    plugins: [
+        new ExtractTextPlugin('[name].css')
+    ]
 });
+
+// --inline --progress --port 4002
+// rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail
+
+module.exports = config;

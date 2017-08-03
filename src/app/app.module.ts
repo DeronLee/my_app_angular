@@ -1,37 +1,13 @@
-import {NgModule}               from '@angular/core';
-import {BrowserModule}          from '@angular/platform-browser';
-import {FormsModule}            from '@angular/forms';
-
-//引用组件
-import {AppComponent}         from './app.component';
-import {ProductListComponent}        from './pruduct/product-list.component';
-import {ProductDetailComponent}  from './pruduct/product-detail.component';
-
-import {CartComponent}        from './order/cart.component';
-import {UserCenterComponent}  from './user/user-center.component';
-
-import {ProductService}          from './pruduct/product.service';
-
-import {AppRoutingModule}     from './app-routing.module';
-
+import { NgModule } from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { AppComponent } from './app.component';
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule
+    BrowserModule
   ],
   declarations: [
-    AppComponent,
-    ProductListComponent,
-    ProductDetailComponent,
-    CartComponent,
-    UserCenterComponent
+    AppComponent
   ],
-  providers: [
-    ProductService
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
-
-export class AppModule {
-}
+export class AppModule { }
