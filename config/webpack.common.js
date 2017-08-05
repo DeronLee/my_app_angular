@@ -34,23 +34,41 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file-loader?name=assets/[name].[hash].[ext]'
             },
+            // {
+            //     test: /\.css$/,
+            //     exclude: helpers.root('src', 'app'),
+            //     loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap'})
+            // },
+            // {
+            //     test: /\.css$/,
+            //     include: helpers.root('src', 'app'),
+            //     loader: 'raw-loader'
+            // },
+            //sass
+            // {
+            //     test: /\.scss$/,
+            //     exclude: [/node_modules/, /src\/app/],
+            //     loader: extractCSS.extract('style-loader', 'raw!postcss!sass')
+            // }
+            // loader config for angular component styles
             {
-                test: /\.css$/,
-                exclude: helpers.root('src', 'app'),
-                loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap'})
+                test: /\.(scss|css)$/,
+                use: ['raw-loader','sass-loader'], // don't use css-loader for ng2 （unusual）
             },
+// loader config for global css files
             {
-                test: /\.css$/,
-                include: helpers.root('src', 'app'),
-                loader: 'raw-loader'
+                test: /\.scss$/,
+                exclude: [/node_modules/, /src\/app/],
+                use: ExtractTextPlugin.extract({
+                    fallbackLoader: 'style-loader',
+                    use: ['css-loader','sass-loader']
+                })
             }
         ]
     },
 
     plugins: [
-        // Workaround for angular/angular#11580
         new webpack.ContextReplacementPlugin(
-            // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)@angular/,
             helpers.root('./src'), // location of your src
             {} // a map of your routes
@@ -65,7 +83,7 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin({
             // multiStep: true
-        })//HMR
+        }),//HMR
     ]
 }
 ;
